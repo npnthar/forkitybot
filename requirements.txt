@@ -1,7 +1,6 @@
-aiogram==3.13.1
+aiogram==3.1.0
 groq==0.31.0
-APScheduler==3.10.4
-Flask==2.3.3
-dateparser==1.2.2
-Flask==2.3.3
+APScheduler==3.11.1
+Flask==3.1.2
+dateparser==1.1.8
 stability-sdk==0.3.0
