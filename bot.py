@@ -364,8 +364,11 @@ async def translate_prompt(text: str) -> str:
             messages=[{
                 "role": "system",
                 "content": ("Ты — помощник по подготовке промтов для генерации изображений. "
-                            "Переведи текст на английский и сделай лаконичный prompt для SD, "
-                            "добавь стиль, освещение, детализацию, если нужно.")
+                            "Твоя задача: перевести входной текст на английский и преобразовать "
+                            "его в лаконичный, детализированный и стильный prompt для моделей вроде "
+                            "Stable Diffusion. Не придумывай лишнего, не добавляй субъективных оценок, "
+                            "просто улучшай и уточняй описание, добавляя краткие указания по стилю, освещению, "
+                            "детализации, если это явно следует из запроса.")
             }, {
                 "role": "user",
                 "content": text
@@ -379,14 +382,14 @@ async def translate_prompt(text: str) -> str:
 @dp.callback_query(F.data == "draw")
 async def cb_draw_start(call: types.CallbackQuery, state: FSMContext):
     await call.answer()
-    await call.message.answer("Опиши, что я должен нарисовать (промт):")
+    await call.message.answer("Опиши, что я должен нарисовать:")
     await state.set_state(Draw.waiting_prompt)
 
 
 @dp.message(Draw.waiting_prompt)
 async def draw_image(message: types.Message, state: FSMContext):
     prompt = message.text
-    await message.answer("Перевожу промт и генерирую картинку... ⏳")
+    await message.answer("Перевожу и генерирую картинку... ⏳")
     await state.clear()
     try:
         prompt_en = await translate_prompt(prompt)
