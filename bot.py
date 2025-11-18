@@ -15,6 +15,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, ContentType, FSInputFile
+from aiogram.client.default import DefaultBotProperties
 
 from groq import Groq
 from flask import Flask
@@ -37,7 +38,10 @@ MY_HUGS_CHANNEL = os.getenv("MY_HUGS_CHANNEL") or "@forkity"
 if not STABILITY_KEY:
     raise ValueError("Не задан STABILITY_API_KEY. Проверь переменные окружения.")
 
-bot = Bot(token=TOKEN, parse_mode="HTML")
+bot = Bot(
+    token=TOKEN,
+    default=DefaultBotProperties(parse_mode="HTML")
+)
 storage = MemoryStorage()
 dp = Dispatcher(storage=storage)
 scheduler = AsyncIOScheduler(timezone="Europe/Moscow")
