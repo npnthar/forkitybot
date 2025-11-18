@@ -3,4 +3,4 @@ groq==0.31.0
 APScheduler==3.11.1
 Flask==3.1.2
 dateparser==1.1.8
-stability-sdk==0.3.0
+stability-sdk
